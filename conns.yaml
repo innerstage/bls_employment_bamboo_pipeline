@@ -1,0 +1,7 @@
+postgres-local:
+  driver: bamboo_lib.connectors.drivers.postgres.PostgresDriver
+  uri: postgres://postgres@localhost:5432/bls
+
+clickhouse-local:
+  driver: bamboo_lib.connectors.drivers.clickhouse.ClickhouseDriver
+  uri: clickhouse://$TESSERACT_DATABASE_URL
