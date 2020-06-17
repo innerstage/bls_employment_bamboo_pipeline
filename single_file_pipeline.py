@@ -17,6 +17,9 @@ class InitializationStep(PipelineStep):
         
         if not os.path.isdir("data_temp"):
             os.mkdir("data_temp")
+
+        if not os.path.isdir("data_json"):
+            os.mkdir("data_json")
         
         if not os.path.isdir("data_output"):
             os.mkdir("data_output")
@@ -31,9 +34,14 @@ class PreparationStep(PipelineStep):
         code, name, series = prev["code"], prev["name"], prev["series"]
         logger.info("Preparing "+name+"...")
 
-        list_chunks = [series[i:i+50] for i in range(len(series)//50)]
+        list_chunks = [series[i:i+50] for i in range(0,len(series)//50*50,50)]
         if series[len(series)-len(series)%50:] != []:
             list_chunks.append(series[len(series)-len(series)%50:])
+
+        with open("data_json/"+code+"_"+name+"_00.txt","w") as file:
+            for index, chunk in enumerate(list_chunks):
+                file.write("Chunk {}:\n".format(index))
+                file.write(str(chunk)+"\n")
 
         logger.info("Number of Series: {}".format(len(series)))
         logger.info("Number of Chunks: {}".format(len(list_chunks)))
@@ -55,8 +63,11 @@ class DownloadAndTransformStep(PipelineStep):
                 logger.info("\nChunk {}/{} | {:.2f}%".format(i+1, n, (i+1)/n*100))
 
                 headers = {'Content-type': 'application/json'}
-                data = json.dumps({"seriesid": series, "registrationkey": "edbfb0418333474da9abddd85d1982ff", "startyear": "2001", "endyear": "2020"})
+                data = json.dumps({"seriesid": series, "registrationkey": "47391590000a4d2583a0efe342d66cf8", "startyear": "2001", "endyear": "2020"})
                 p = requests.post('https://api.bls.gov/publicAPI/v2/timeseries/data/', data=data, headers=headers)
+
+                with open("data_json/"+code+"_"+name+"_"+str(i+1)+"of"+str(n)+".json","w") as file:
+                    file.write(p.text)
 
                 json_data = json.loads(p.text)
                 logger.info(json_data["status"])

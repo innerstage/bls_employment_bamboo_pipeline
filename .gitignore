@@ -131,3 +131,4 @@ dmypy.json
 # Other
 data_temp/
 data_output/single_output.csv
+data_json/

@@ -90,7 +90,7 @@ class SAFactTableStep(PipelineStep):
         df_sa["time_id"] = df_sa["time_id"].astype(int)
         df_sa.to_csv("data_output/bls_sa_fact.csv", index=False, quoting=csv.QUOTE_NONNUMERIC)
 
-        print(df.head())
+        print(df_sa)
 
         return df_sa
 
@@ -114,6 +114,7 @@ class NSAFactTableStep(PipelineStep):
         df_nsa = df_nsa[["time_id", "state_id", "industry_id", "employees"]]
         df_nsa.to_csv("data_output/bls_nsa_fact.csv", index=False, quoting=csv.QUOTE_NONNUMERIC)
 
+        print(df_nsa)
         return df_nsa
 
 
@@ -164,6 +165,6 @@ if __name__ == "__main__":
     relational_pipeline.run(
         {
             "db": "clickhouse-local",
-            "ingest": True
+            "ingest": False
         }
     )
