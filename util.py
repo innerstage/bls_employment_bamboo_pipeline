@@ -428,3 +428,6 @@ INDUSTRY_NAMES = {
     "90940000": "Total State and Local Government", 
     "90940001": "District of Columbia Government"
 }
+
+INDUSTRY_EXCEPTIONS = [
+    "00000000", "05000000", "06000000", "07000000", "08000000"]
