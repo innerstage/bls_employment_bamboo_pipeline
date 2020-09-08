@@ -1,4 +1,5 @@
 . .env
+cp etl_steps/relational_model/schema.xml datausa-tesseract/
 cd etl_steps/relational_model
 clickhouse-client --password=$DB_PW --query="DROP DATABASE bls"
 echo "Dropped database..."
