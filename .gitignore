@@ -134,3 +134,4 @@ data_output/
 data_json/
 partial*/
 new*.csv
+py3/
