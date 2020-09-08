@@ -61,8 +61,8 @@ def process_level(level, df, hierarchy_dict, state_names, sa_adj):
     #length = {l:len(df_level[l]) for l in ["L1", "L2", "L3", "L4", "L5"]}
     
     a = 0
-    for m in all_months[-1:]: #for m in all_months:
-        for s in all_states[:6]: #for s in all_states:
+    for m in all_months: #for m in all_months:
+        for s in all_states: #for s in all_states:
             print("Processing {}-{}, {} ({})".format(m[:4], m[-2:], state_names[str(s).zfill(2)], s))
             for ind in list_industries(m, s, df_level[level]):
                 a += 1
